@@ -132,6 +132,7 @@ function register_j2wp_options()
   add_option( 'j2wp_cat_sel', 'on' );
   add_option( 'j2wp_page_sel', 'on' );
   add_option( 'j2wp_users_sel', 'on' );
+  add_option( 'j2wp_comm_sel', 'on' );
   add_option( 'j2wp_mysql_srv', 'localhost' );
   add_option( 'j2wp_mysql_use_one_srv', '0' );
   add_option( 'j2wp_mysql_usr', '' );
@@ -393,6 +394,16 @@ function j2wp_set_migration_options()
     $_POST['new_j2wp_users_sel'] = 'on';
     $j2wp_users_sel = 'on';
   }
+  if (!isset( $_POST['new_j2wp_comm_sel'] ))
+  {
+    $_POST['new_j2wp_comm_sel'] = 'off';
+    $j2wp_comm_sel = 'off';
+  }
+  else
+  {
+    $_POST['new_j2wp_comm_sel'] = 'on';
+    $j2wp_comm_sel = 'on';
+  }
   if (!isset( $_POST['new_j2wp_cpage_conv'] ))
   {
     $_POST['new_j2wp_cpage_conv'] = 'off';
@@ -406,6 +417,7 @@ function j2wp_set_migration_options()
 
   update_option( 'j2wp_page_sel' , $j2wp_page_sel );
   update_option( 'j2wp_users_sel', $j2wp_users_sel );
+  update_option( 'j2wp_comm_sel', $j2wp_comm_sel );
   update_option( 'j2wp_cat_sel'  , $j2wp_cat_sel );
   update_option( 'j2wp_cpage_conv',$j2wp_cpage_conv );
 
