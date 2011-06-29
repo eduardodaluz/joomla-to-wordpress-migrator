@@ -397,12 +397,12 @@ function j2wp_set_migration_options()
   if (!isset( $_POST['new_j2wp_jcomm_sel'] ))
   {
     $_POST['new_j2wp_jcomm_sel'] = 'off';
-    $j2wp_comm_sel = 'off';
+    $j2wp_jcomm_sel = 'off';
   }
   else
   {
     $_POST['new_j2wp_jcomm_sel'] = 'on';
-    $j2wp_comm_sel = 'on';
+    $j2wp_jcomm_sel = 'on';
   }
   if (!isset( $_POST['new_j2wp_cpage_conv'] ))
   {
