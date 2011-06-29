@@ -34,7 +34,7 @@ function joomla2wp_print_plugin_option_page()
   $cat_sel           = get_option("j2wp_cat_sel");
   $page_sel          = get_option("j2wp_page_sel");
   $users_sel         = get_option("j2wp_users_sel");
-  $jcomm_sel         = get_option("j2wp_comm_sel");
+  $jcomm_sel         = get_option("j2wp_jcomm_sel");
   $mysql_change_vars = get_option("j2wp_mysql_change_vars");
   $j2wp_cpage_conv   = get_option("j2wp_cpage_conv");
 
@@ -74,7 +74,7 @@ function joomla2wp_print_plugin_option_page()
     $users_sel_checkbox = ' ';
   }
 
-if ( $jcomm_sel == 'on' )
+  if ( $jcomm_sel == 'on' )
   {
     $jcomm_sel_checkbox = ' checked="checked" ';
   }
