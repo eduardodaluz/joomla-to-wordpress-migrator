@@ -1,0 +1,211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Joomla To Wordpress Migrator v1.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-29 11:18+0200\n"
+"PO-Revision-Date: 2010-05-29 11:37+0100\n"
+"Last-Translator: Christian Gnoth <christian.gnoth@arcor.de>\n"
+"Language-Team: Christian Gnoth <support@it-gnoth.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: wir, sie\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+
+#: joomla2wp-admin.php:54
+msgid "    <h2>Joomla To WordPress Migrator</h2>"
+msgstr "    <h2>Joomla To WordPress Migrator</h2>"
+
+#: joomla2wp-admin.php:57
+msgid "This Plugin migrates all content from Joomla 1.5 to Wordpress 2.9"
+msgstr "This Plugin migrates all content from Joomla 1.5 to Wordpress 2.9"
+
+#: joomla2wp-admin.php:67
+msgid "        <h3>Joomla and WP - Database Parameters</h3>"
+msgstr "        <h3>Joomla and WP - Database Parameters</h3>"
+
+#: joomla2wp-admin.php:69
+msgid "          <p><b>DB Connection Parameters</b></p>"
+msgstr "          <p><b>DB Connection Parameters</b></p>"
+
+#: joomla2wp-admin.php:73
+msgid "              MySQL Server:"
+msgstr "              MySQL Server:"
+
+#: joomla2wp-admin.php:76
+msgid "\" />  (normally <i>localhost</i>)"
+msgstr "\" />  (normally <i>localhost</i>)"
+
+#: joomla2wp-admin.php:81
+msgid "              MySQL Server User:"
+msgstr "              MySQL Server User:"
+
+#: joomla2wp-admin.php:89
+msgid "              MySQL Server Password:"
+msgstr "              MySQL Server Password:"
+
+#: joomla2wp-admin.php:96
+msgid "          <p><b>Joomla DB Params</b></p>"
+msgstr "          <p><b>Joomla DB Params</b></p>"
+
+#: joomla2wp-admin.php:100
+msgid "              Joomla Database Name:"
+msgstr "              Joomla Database Name:"
+
+#: joomla2wp-admin.php:108
+msgid "              Joomla TB Prefix:"
+msgstr "              Joomla TB Prefix:"
+
+#: joomla2wp-admin.php:116
+msgid "              Joomla Website URL:"
+msgstr "              Joomla Website URL:"
+
+#: joomla2wp-admin.php:123
+msgid "          <p><b>WP DB Params</b></p>"
+msgstr "          <p><b>WP DB Params</b></p>"
+
+#: joomla2wp-admin.php:127
+msgid "              WP Database Name:"
+msgstr "              WP Database Name:"
+
+#: joomla2wp-admin.php:135
+msgid "              WP TB Prefix:"
+msgstr "              WP TB Prefix:"
+
+#: joomla2wp-admin.php:143
+msgid "              WP Website URL:"
+msgstr "              WP Website URL:"
+
+#: joomla2wp-admin.php:207
+msgid "        <h3>Category Selection</h3>"
+msgstr "        <h3>Category Selection</h3>"
+
+#: joomla2wp-admin.php:209
+msgid "Here you can decide if you want migrate <b>all categories</b> or if you want <b>select</b> them <b>separately"
+msgstr "Hier können Sie entscheiden, ob Sie <b>alle Kategorien</b> migrieren möchten oder nur <b>einzelne"
+
+#: joomla2wp-admin.php:213
+msgid "              Migrate all Categories:"
+msgstr "              Migrate all Categories:"
+
+#: joomla2wp-admin.php:229
+msgid "<h3>Data Migration</h3>"
+msgstr "<h3>Data Migration</h3>"
+
+#: joomla2wp-admin.php:236
+msgid "<input type=\"submit\" name=\"do_mig_btn\" value=\"Start Migration - Data from Joomla to WP\" />"
+msgstr "<input type=\"submit\" name=\"do_mig_btn\" value=\"Start Migration - Data from Joomla to WP\" />"
+
+#: joomla2wp-admin.php:244
+msgid "<h3>URLs in Posts Migration</h3>"
+msgstr "<h3>URLs in Posts Migration</h3>"
+
+#: joomla2wp-admin.php:246
+msgid "To change the URLs in the content from Joomla posts to WP posts - press the button below!"
+msgstr "Um die URLs in den Joomla Beiträgen auf die neuen Wordpress Posts zu ändern - drücken Sie den Button unten!"
+
+#: joomla2wp-admin.php:266
+msgid "Select the categories you want migrate to WP !"
+msgstr "Wählen Sie die Kategorien, welche Sie migrieren möchten !"
+
+#: joomla2wp-admin.php:283
+msgid "Abort"
+msgstr "Stop"
+
+#: joomla2wp-admin.php:284
+msgid "Continue"
+msgstr "Fortfahren"
+
+#: joomla2wp-functions.php:155
+msgid "<strong>List done </strong>.</div>"
+msgstr "<strong>List done </strong>.</div>"
+
+#: joomla2wp-functions.php:162
+msgid "<strong>URLs changed ! </strong>.</div>"
+msgstr "<strong>URLs changed ! </strong>.</div>"
+
+#: joomla2wp-functions.php:183
+msgid "<strong>Migration stopped </strong>.</div>"
+msgstr "<strong>Migration abgebrochen </strong>.</div>"
+
+#: joomla2wp-functions.php:198
+msgid "<strong>No category selected !!!</strong>.</div>"
+msgstr "<strong>Keine Kategorie ausgewählt !!!</strong>.</div>"
+
+#: joomla2wp-functions.php:319
+msgid "<strong>Options updated !</strong></div>"
+msgstr "<strong>Options updated !</strong></div>"
+
+#: joomla2wp-mig.php:52
+msgid "<br /> Found "
+msgstr "<br /> "
+
+#: joomla2wp-mig.php:52
+msgid " Categories...<br /><br />"
+msgstr "Kategorien gefunden...<br /><br />"
+
+#: joomla2wp-mig.php:109
+msgid "<br />Warning: can not execute set_time_limit() script may abort...<br />"
+msgstr "<br />Warning: can not execute set_time_limit() script may abort...<br />"
+
+#: joomla2wp-mig.php:137
+msgid "<strong>Migration done </strong>.</div>"
+msgstr "<strong>Migration done </strong>.</div>"
+
+#: joomla2wp-mig.php:243
+msgid "Processing Category: <b>"
+msgstr "Bearbeite Kategorie: <b>"
+
+#: joomla2wp-mig.php:248
+msgid " found "
+msgstr " found "
+
+#: joomla2wp-mig.php:249
+msgid " posts.... <br />"
+msgstr " posts.... <br />"
+
+#: joomla2wp-mig.php:331
+msgid "Inserted "
+msgstr "Inserted "
+
+#: joomla2wp-mig.php:332
+msgid " Posts<br /><br />"
+msgstr " Posts<br /><br />"
+
+#: joomla2wp-mig.php:441
+msgid "Processing "
+msgstr "Bearbeite "
+
+#: joomla2wp-mig.php:441
+msgid " Posts..."
+msgstr " Posts..."
+
+#: joomla2wp-mig.php:499
+msgid "The following links must be changed manually:"
+msgstr "Die folgenden Links müssen manuell geändert werden: "
+
+#: joomla2wp-mig.php:823
+msgid "<br />Warning: can not SET MySQL time variables ... script may abort or stop working...<br />"
+msgstr "<br />Warning: can not SET MySQL time variables ... script may abort or stop working...<br />"
+
+#: joomla2wp-mig.php:841
+msgid "Cant get MySQL Connection."
+msgstr "Cant get MySQL Connection."
+
+#: joomla2wp-mig.php:854
+#: joomla2wp-mig.php:867
+msgid "Cant select MySQL Database."
+msgstr "Cant select MySQL Database."
+
+#: joomla2wp-output.php:9
+msgid "<h3>Joomla To Wordpress Migration - Status Messages</h3>"
+msgstr "<h3>Joomla To Wordpress Migration - Status Messages</h3>"
+

@@ -1,0 +1,109 @@
+/*
+
+	All definitions for the plugin option page
+
+*/
+
+#joomla2wp-plugin-main
+{
+  width:  74%;
+}
+
+#joomla2wp-plugin-main .postbox,
+#joomla2wp-plugin-news .postbox
+{
+  min-width:  150px;
+}
+
+#joomla2wp-plugin-news
+{
+  width:  24%;
+}
+
+
+.postbox-container .inside #header-logo
+{
+  margin: 0px 5px 7px 0px;
+}
+
+.postbox-container .inside .support-forum-link
+{
+  line-height: 2.5em;
+}
+
+
+.meta-box-sortables
+{
+  margin: 0px 5px;
+}
+
+.postbox .inside
+{
+  position:  relative;
+  margin:    10px;
+}
+
+#joomla2wp-plugin-main .postbox .inside .submit
+{
+  margin:  5px 0px 0px 0px;
+  padding: 0px;
+  float:   none;
+}
+
+
+.div-wait
+{
+  display: none;
+  padding: 0px;
+  margin:  0px;
+}
+
+.div-wait img
+{
+  height: 25px; 
+  width: 25px;
+  margin-bottom:-8px;
+}
+
+
+
+/***
+*
+*       set of feature defintions
+*
+****/
+
+.small
+{
+  font-family:  curier;
+  font-size:    12px;
+  font-weight:  bold;
+  font-style:   italic;
+}
+
+#plugin_option_set
+{
+	border: 1px solid #000;
+	margin: 5px;
+	padding:10px;
+}
+
+#plugin_option_block
+{
+	height:1%;
+	position:relative;
+	display:inline;
+	margin-right: 20px;
+}
+
+#plugin_option_entry
+{
+}
+
+
+#wpwrap #wpcontent #wpbody .wrap SELECT
+{
+         padding:	5px;
+         height:	auto;
+         font-size:	11px;
+}
