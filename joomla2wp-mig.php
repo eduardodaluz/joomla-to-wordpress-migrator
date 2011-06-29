@@ -641,7 +641,27 @@ function j2wp_get_post_count( $mig_cat_array )
   return $j2wp_post_count;
 }
 
+function j2wp_get_comment_count( $R )
+{
+  global  $wpdb,
+          $CON;
 
+  $j2wp_joomla_tb_prefix = get_option('j2wp_joomla_tb_prefix');
+  j2wp_do_joomla_connect();
+  set_time_limit(25);
+
+  $query = "SELECT COUNT(*) FROM `" . $j2wp_joomla_tb_prefix . "jcomments` WHERE object_id = '" . $R->id . "' ORDER BY `date` ";
+  $result = mysql_query($query, $CON);
+  if ( !$result )
+    echo mysql_error();
+  while($R = mysql_fetch_array($result)) 
+  {
+    $j2wp_comment_count = $R[0];
+  }
+  mysql_free_result($result);
+
+  return $j2wp_comment_count;
+}
 
 function  j2wp_joomla_wp_posts_by_cat( $mig_cat_array, $cat_index, $user_id )
 {
@@ -689,14 +709,15 @@ function  j2wp_joomla_wp_posts_by_cat( $mig_cat_array, $cat_index, $user_id )
     $wp_posts    = $result_array[1];
     $post_tags   = $result_array[2];
     $post_images = $result_array[3];
+    $post_comments = $result_array[4];
 
-    j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_images, $wp_cat_id );
+    j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_images, $post_comments, $wp_cat_id );
   }
   
   return;
 }
 
-function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_images, $wp_cat_id )
+function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_images, $post_comments, $wp_cat_id )
 {
   global  $wpdb,
           $user_id,
@@ -836,7 +857,7 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
   return;
 }
 
-
+//function j2wp_insert_comment_to_wp
 
 function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_pos, $user_id)
 {
@@ -899,6 +920,7 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
   $sql_query = array();
   $post_tags = array();
   $post_images = array();
+  $post_comments = array();
   $STORAGE   = array();
   $wp_posts  = array();
 
@@ -1046,6 +1068,19 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
       $user_id = username_exists( $user_name );
     }
 
+    // JComments
+    $get_jcomments = get_option('j2wp_jcomm_sel');
+    if ( $get_jcomments = 'on')
+    {
+      //  echo 'Estou ativo jcomment <br />';
+      $j2wp_comment_count = j2wp_get_comment_count($R);
+      if ($j2wp_comment_count > 0)
+      {
+        echo 'Post ' . $R->id . ' has ' . $j2wp_comment_count . 'comment(s).';
+        $query_jc = '';
+      }
+    }
+
     $wp_posts[] = array(
         'post_author' => $user_id,
         'post_category' => array($wp_cat_id),
@@ -1118,6 +1153,7 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
   $result_array[1] = $wp_posts;
   $result_array[2] = $post_tags;
   $result_array[3] = $post_images;
+  $result_array[4] = $post_comments;
 
   return $result_array;
 }
