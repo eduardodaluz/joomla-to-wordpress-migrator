@@ -819,6 +819,12 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
         wp_update_attachment_metadata( $attach_id,  $attach_data );
       }
 
+      // JComments
+      $get_jcomments = get_option('j2wp_jcomm_sel');
+      if ( $get_jcomments = 'on')
+      {
+      }
+
       $count++;
     }
   }
@@ -1072,12 +1078,46 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
     $get_jcomments = get_option('j2wp_jcomm_sel');
     if ( $get_jcomments = 'on')
     {
-      //  echo 'Estou ativo jcomment <br />';
       $j2wp_comment_count = j2wp_get_comment_count($R);
       if ($j2wp_comment_count > 0)
       {
         echo 'Post ' . $R->id . ' has ' . $j2wp_comment_count . 'comment(s).';
-        $query_jc = '';
+        $query_jc = "SELECT * FROM `" . $j2wp_joomla_tb_prefix . "jcomments` WHERE object_id = '" . $R->id . "' ORDER BY `date` ";
+        $result_jc = mysql_query($query_jc, $CON);
+        if ( !$result_jc )
+          echo mysql_error();
+        $comments = array();
+        while($JC = mysql_fetch_object($result)) 
+        {
+          if ( mysql_error() )
+            echo mysql_error();
+          set_time_limit(0);
+          $wp_comment[] = array(
+            'comment_post_ID' => 0,
+            'comment_author' => $JC->username,
+            'comment_author_email' => $JC->email,
+            'comment_author_url' => $JC->homepage,
+            'comment_content' => $JC->comment,
+            'comment_type' => ,
+            'comment_parent' => 0,
+            'user_id' => 0,
+            'comment_author_IP' => $JC->ip,
+            'comment_agent' => ,
+            'comment_date' => $JC->date,
+            'comment_approved' => $JC->published
+          );
+          // $JC->published needs validation
+        }
+        $j2wp_comment[] = array(
+            'comment_valid' => true,
+            'wp_comment' => $comments
+          );
+      } else
+      {
+        $j2wp_comment[] = array(
+          'comment_valid' => false,
+          'wp_comment' => null
+        );
       }
     }
 
