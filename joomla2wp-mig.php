@@ -798,7 +798,7 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
       }
       foreach ( $images_items as $image_item )
       {
-        $filename = �j2wp_wp_img_dir . '/' . $image_item['filename'];
+        $filename = $j2wp_wp_img_dir . '/' . $image_item['filename'];
         echo '<br />' . $filename . '<br />';
         $wp_filetype = wp_check_filetype(basename($filename), null );
         echo '<br />' . $wp_filetype . '<br />';
@@ -823,6 +823,53 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
       $get_jcomments = get_option('j2wp_jcomm_sel');
       if ( $get_jcomments = 'on')
       {
+      		// O script de instalação está certo.
+      		$comments = $j2wp_post['jcomments'];
+      		echo print_r($comments);
+			foreach( $comments as $comment)
+			{
+				//echo 'Detalhes: ' . $comment['comment_author'] . ' <br />';
+				$comment['comment_post_ID'] = $id;
+				$ok = wp_insert_comment($comment);
+	      		if($ok)
+	      		{
+	      			echo 'Comentário salvo!<br />';
+	      		} else
+	      		{
+	      			echo 'Erro ao salvar o comentário!<br />';
+	      		}				
+			}
+      	
+//       	if ($post_comment->valid)
+//       	{
+//       		echo 'Achei comentários válidos, vamos itera-los!<br />';
+//       		$wp_comment2 = $post_comment->wp_comment; 
+//       		foreach ($wp_comment2 as $comment)
+// 	      	{
+// 	      		$comment->comment_post_ID = $id;
+// 	      		 set timeout values
+// 	      		$query_cmd  = "SET net_read_timeout = 18000;";
+// 	      		$query_rc = mysql_query($query_cmd, $CON);
+// 	      		if ( mysql_error() )
+// 	      		echo mysql_error();
+// 	      		$query_cmd  = "SET net_write_timeout = 18000;";
+// 	      		$query_rc = mysql_query($query_cmd, $CON);
+// 	      		if ( mysql_error() )
+// 	      		echo mysql_error();
+// 	      		echo 'Comentário de ' . $comment->comment_author . ', ' . $comment->comment_author_email . ' <br />';
+// 	      		$isOK = wp_insert_comment($comment);
+// 	      		set_time_limit(0);
+// 	      		if ( mysql_error() )
+// 	      			echo mysql_error();
+// 	      		if(isOK)
+// 	      		{
+// 	      			echo 'Comentário salvo!<br />';
+// 	      		} else
+// 	      		{
+// 	      			echo 'Erro ao salvar o comentário!<br />';
+// 	      		}
+// 	      	}
+//       	}
       }
 
       $count++;
@@ -862,8 +909,6 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
 
   return;
 }
-
-//function j2wp_insert_comment_to_wp
 
 function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_pos, $user_id)
 {
@@ -1075,49 +1120,45 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
     }
 
     // JComments
-    $get_jcomments = get_option('j2wp_jcomm_sel');
-    if ( $get_jcomments = 'on')
+    $jcomm_sel = get_option('j2wp_jcomm_sel');
+    if ( $jcomm_sel = 'on')
     {
       $j2wp_comment_count = j2wp_get_comment_count($R);
       if ($j2wp_comment_count > 0)
       {
-        echo 'Post ' . $R->id . ' has ' . $j2wp_comment_count . 'comment(s).';
+        echo 'Post ' . $R->id . ' has ' . $j2wp_comment_count . ' comment(s).<br />';
         $query_jc = "SELECT * FROM `" . $j2wp_joomla_tb_prefix . "jcomments` WHERE object_id = '" . $R->id . "' ORDER BY `date` ";
         $result_jc = mysql_query($query_jc, $CON);
         if ( !$result_jc )
           echo mysql_error();
-        $comments = array();
-        while($JC = mysql_fetch_object($result)) 
+        
+        $wp_jc = array();
+        $count_jc = 0;
+        while($JC = mysql_fetch_object($result_jc)) 
         {
           if ( mysql_error() )
             echo mysql_error();
           set_time_limit(0);
-          $wp_comment[] = array(
+          $wp_jc[] = array(
             'comment_post_ID' => 0,
             'comment_author' => $JC->username,
             'comment_author_email' => $JC->email,
             'comment_author_url' => $JC->homepage,
             'comment_content' => $JC->comment,
-            'comment_type' => ,
+            'comment_type' => null,
             'comment_parent' => 0,
             'user_id' => 0,
             'comment_author_IP' => $JC->ip,
-            'comment_agent' => ,
+            'comment_agent' => null,
             'comment_date' => $JC->date,
             'comment_approved' => $JC->published
           );
           // $JC->published needs validation
+          $count_jc++;
         }
-        $j2wp_comment[] = array(
-            'comment_valid' => true,
-            'wp_comment' => $comments
-          );
-      } else
-      {
-        $j2wp_comment[] = array(
-          'comment_valid' => false,
-          'wp_comment' => null
-        );
+        echo 'Wp_jc comment com ' . $count_jc . ' objecto(s)<br />';
+//         echo print_r($wp_jc) . ' <br />';
+        mysql_free_result($result_jc);
       }
     }
 
@@ -1135,7 +1176,8 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
         'ping_status' => 'open',
         'post_name' => $R->alias,
         'tags_input' => $R->metakey, 
-        'post_type' => 'post'
+        'post_type' => 'post',
+        'jcomments' => $wp_jc
       );
 
     $post_tags[]   = $R->metakey;
