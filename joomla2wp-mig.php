@@ -826,18 +826,12 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
       		$comments = $j2wp_post['jcomments'];
 			foreach( $comments as $comment)
 			{
-				echo 'Detalhes: ' . $comment['comment_post_ID'] . ' <br />';
 				if ($comment['comment_post_ID'] == 1)
 				{
 					$comment['comment_post_ID'] = $id;
-					$ok = wp_insert_comment($comment);
-		      		if($ok)
-		      		{
-		      			echo 'Comentário salvo!<br />';
-		      		} else
-		      		{
-		      			echo 'Erro ao salvar o comentário!<br />';
-		      		}
+					wp_insert_comment($comment);
+		      		if ( mysql_error() )
+      					echo mysql_error();
 				}				
 			}
       }
@@ -1096,13 +1090,10 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
       $j2wp_comment_count = j2wp_get_comment_count($R);
       if ($j2wp_comment_count > 0)
       {
-        //echo 'Post ' . $R->id . ' has ' . $j2wp_comment_count . ' comment(s).<br />';
         $query_jc = "SELECT * FROM `" . $j2wp_joomla_tb_prefix . "jcomments` WHERE object_id = '" . $R->id . "' ORDER BY `date` ";
         $result_jc = mysql_query($query_jc, $CON);
         if ( !$result_jc )
           echo mysql_error();
-        
-        $count_jc = 0;
         while($jc = mysql_fetch_object($result_jc)) 
         {
           if ( mysql_error() )
@@ -1120,12 +1111,9 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
             'comment_author_IP' => $jc->ip,
             'comment_agent' => null,
             'comment_date' => $jc->date,
-            'comment_approved' => $jc->published
+            'comment_approved' => $jc->published // needs validation
           );
-          // $JC->published needs validation
-          $count_jc++;
         }
-//         echo print_r($wp_jc) . ' <br />';
         mysql_free_result($result_jc);
       }
     }
