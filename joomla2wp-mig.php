@@ -726,6 +726,7 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
 
   set_time_limit(0);
   $j2wp_wp_tb_prefix = get_option('j2wp_wp_tb_prefix');
+  $jcomm_sel = get_option('j2wp_jcomm_sel');
   j2wp_do_wp_connect();
 
   $count = 0;
@@ -819,9 +820,8 @@ function j2wp_insert_posts_to_wp( $sql_query, $wp_posts, $post_tags, $post_image
         wp_update_attachment_metadata( $attach_id,  $attach_data );
       }
 
-      // JComments
-      $get_jcomments = get_option('j2wp_jcomm_sel');
-      if ( $get_jcomments = 'on')
+      // JComments Migrator
+      if ( $jcomm_sel = 'on')
       {
       		$comments = $j2wp_post['jcomments'];
 			foreach( $comments as $comment)
@@ -893,6 +893,7 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
   $wp_cat_id = $mig_cat_array['wp_id'];
   $j2wp_wp_tb_prefix = get_option('j2wp_wp_tb_prefix');
   $j2wp_cms_type     = get_option('j2wp_cms_type');
+  $jcomm_sel = get_option('j2wp_jcomm_sel');
 
   $wp_img_folder       = get_option('j2wp_wp_images_folder');
   $wp_blog_url         = 'http://' . get_option('j2wp_wp_web_url');
@@ -1089,43 +1090,41 @@ function j2wp_process_posts_by_step( $mig_cat_array, $working_steps, $working_po
       $user_id = username_exists( $user_name );
     }
     $wp_jc = array();
-    // JComments
-    $jcomm_sel = get_option('j2wp_jcomm_sel');
+    // JComments Migrator
     if ( $jcomm_sel = 'on')
     {
       $j2wp_comment_count = j2wp_get_comment_count($R);
       if ($j2wp_comment_count > 0)
       {
-        echo 'Post ' . $R->id . ' has ' . $j2wp_comment_count . ' comment(s).<br />';
+        //echo 'Post ' . $R->id . ' has ' . $j2wp_comment_count . ' comment(s).<br />';
         $query_jc = "SELECT * FROM `" . $j2wp_joomla_tb_prefix . "jcomments` WHERE object_id = '" . $R->id . "' ORDER BY `date` ";
         $result_jc = mysql_query($query_jc, $CON);
         if ( !$result_jc )
           echo mysql_error();
         
         $count_jc = 0;
-        while($JC = mysql_fetch_object($result_jc)) 
+        while($jc = mysql_fetch_object($result_jc)) 
         {
           if ( mysql_error() )
             echo mysql_error();
           set_time_limit(0);
           $wp_jc[] = array(
             'comment_post_ID' => 1,
-            'comment_author' => $JC->username,
-            'comment_author_email' => $JC->email,
-            'comment_author_url' => $JC->homepage,
-            'comment_content' => $JC->comment,
+            'comment_author' => $jc->username,
+            'comment_author_email' => $jc->email,
+            'comment_author_url' => $jc->homepage,
+            'comment_content' => $jc->comment,
             'comment_type' => null,
             'comment_parent' => 0,
             'user_id' => 0,
-            'comment_author_IP' => $JC->ip,
+            'comment_author_IP' => $jc->ip,
             'comment_agent' => null,
-            'comment_date' => $JC->date,
-            'comment_approved' => $JC->published
+            'comment_date' => $jc->date,
+            'comment_approved' => $jc->published
           );
           // $JC->published needs validation
           $count_jc++;
         }
-        echo 'Wp_jc comment com ' . $count_jc . ' objecto(s)<br />';
 //         echo print_r($wp_jc) . ' <br />';
         mysql_free_result($result_jc);
       }
